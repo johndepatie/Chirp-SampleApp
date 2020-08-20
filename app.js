@@ -5,6 +5,7 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var sassMiddleware = require('node-sass-middleware');
 
+/*
 const MongoClient = require('mongodb').MongoClient;
 const url = 'mongodb://localhost:27017';
 
@@ -16,7 +17,7 @@ MongoClient.connect(url, function(err, client) {
     console.log(documents);
     client.close();
   });
-});
+});*/
 
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
