@@ -5,10 +5,40 @@ var cookieParser = require('cookie-parser');
 var logger = require('morgan');
 var sassMiddleware = require('node-sass-middleware');
 
+const MongoClient = require('mongodb').MongoClient;
+const url = 'mongodb://localhost:27017';
+
+MongoClient.connect(url, function(err, client) {
+  const db = client.db('comics');
+  const collection = db.collection('superheroes');
+
+  collection.find({}).toArray((error, documents) => {
+    console.log(documents);
+    client.close();
+  });
+});
+
 var indexRouter = require('./routes/index');
 var usersRouter = require('./routes/users');
 
 var app = express();
+
+// Display MongoDB on page instead of in console, or in addition to
+/*
+app.get('/', (req, res) =>{
+    MongoClient.connect(url, function (err, client) {
+      if (err) throw err
+
+      var db = client.db('comics')
+
+      db.collection('superheroes').find().toArray(function (err, result) {
+        if (err) throw err
+        
+        res.send(result)
+      })
+    })
+})
+*/
 
 // view engine setup
 app.set('views', path.join(__dirname, 'views'));
