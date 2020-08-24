@@ -1,5 +1,6 @@
 var express = require('express');
 var User = require('../models/users');
+var validate = require("validate.js");
 
 exports.signupForm = function(req, res) {
     res.render('accounts/new');
