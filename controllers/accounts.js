@@ -1,27 +1,28 @@
 var express = require('express');
 var User = require('../models/users');
-var validate = require("validate.js");
 
 exports.signupForm = function(req, res) {
-    res.render('accounts/new');
+    res.render('accounts/new', { user: {}, errors: [] });
 };
 
 exports.create = function(req, res) {
-    var username = req.body.email;
+    var username = req.body.username;
     var password = req.body.password;
 
     var newUser = new User({
-        username: username,
-        password: password
+      username: username,
+      password: password
     });
 
     newUser.save(function(err) {
-        if (err) throw err;
+      if (err) {
+          res.render('accounts/new', { user: newUser, errors: err.errors });
+      } else {
+          res.redirect('/');
+          console.log('User saved successfully!');
+      }
 
-        console.log('User saved succesfully!');
     });
-
-    res.redirect('/');
 };
 
 exports.list = function(req, res) {

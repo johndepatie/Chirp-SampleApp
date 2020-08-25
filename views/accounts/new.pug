@@ -6,14 +6,17 @@ block content
     .fcontainer
         form(method="POST")
             .form-group
-            label(for="emailInput") Email
-            input.form-control#emailInput(
-                name="email"
+            label(for="usernameInput") Email
+            input.form-control#usernameInput(
+                name="username"
                 type="email"
-                aria-describedby="emailHelp"
+                aria-describedby="usernameHelp"
                 placeholder="Enter email"
+                class=errors.username ? "is-invalid" : ""
+                value=user.username
             )
-            small#emailHelp.form-text.text-muted We'll never share your email with anyone else.
+            if errors.username
+                #emaliInput.invalid-feedback= errors.username.message
 
             .form-group
             label(for="password") Password
@@ -21,7 +24,10 @@ block content
                 name="password"
                 type="password"
                 placeholder="Password"
+                class=errors.password ? "is-invalid" : ""
             )
+            if errors.password
+                #password.invalid-feedback= errors.password.message
 
             .form-group
             label(for="confirmPassword") Password
